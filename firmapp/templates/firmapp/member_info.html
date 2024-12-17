@@ -1,0 +1,31 @@
+<h2>Member Info</h2>
+
+<!-- Table displaying the investment details of the specific member -->
+<table border="1">
+  <thead>
+    <th>Date</th>
+    <!-- Column for investment date -->
+    <th>Amount</th>
+    <!-- Column for investment amount -->
+  </thead>
+
+  {% for investment in member_investments %}
+  <tr>
+    <td>{{ investment.date }}</td>
+    <!-- Display investment date -->
+    <td>{{ investment.investment }}</td>
+    <!-- Display investment amount -->
+  </tr>
+  {% empty %}
+  <!-- If there are no investments for the member -->
+  <tr>
+    <td colspan="2">No investments available</td>
+  </tr>
+  {% endfor %}
+  <!-- Display the total investment for the member -->
+  <tr>
+    <td>Total Investment</td>
+    <td>{{ member_total }}</td>
+    <!-- Display the total investment amount for the member -->
+  </tr>
+</table>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- Link to the firm home page -->
+    <a href="{% url 'home' %}">Firm Home</a>
+
+    <!-- Investment form -->
+    <form method="POST" action="{% url 'funding' %}">
+        {% csrf_token %} <!-- CSRF token for security -->
+        <label for="membername">Member Name:</label>
+        <input type="text" name="member_name" placeholder="Member Name" />
+        </br>
+        <label for="cpm">Member CPM:</label>
+        <input type="text" name="cpm" placeholder="Member CPM" />
+        </br>
+        <label for="investment">Investment:</label>
+        <input type="text" name="invetsment" placeholder="Amount" />
+        </br>
+        <button type="submit" class="btn btn-secondary">Record investment</button>
+    </form>
+
+    <!-- Section header for investment summary -->
+    <h2>Summary of Share Capital</h2>
+    
+    <!-- Table displaying member investments -->
+    <table border="1">
+    <thead>
+        <th>Name</th><th>CPM</th><th>Total Investment</th>
+    </thead>
+
+    <!-- Loop through each member in the member_list -->
+    {% for member in member_list %}
+    <tr>
+        <td><a href="{% url 'member_info' member.member_name %}">{{ member.member_name }}</a></td>
+        <td>{{ member.member_cpm }}</td>
+        <td>{{ member.investment }}</td>
+    </tr>
+    {% empty %}
+        <!-- Message to display if there are no investments available -->
+        <tr>
+            <td colspan="3">No investments available</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2">Total Capital</td>
+        <td>{{ overall_total }}</td>
+    </tr>
+    </table>
+  </body>
+</html>
